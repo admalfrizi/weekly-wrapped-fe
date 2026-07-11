@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form"
 import { FormInput } from "../../../../components/input/FormInput"
 import { Button } from "@/components/ui/button"
 import { useLogin } from "../../hooks/useAuth"
-import { useEffect } from "react"
 import Link from "next/link"
 
 interface LoginFormProps {
@@ -30,7 +29,7 @@ export default function LoginForm({ onSuccess, onError }: LoginFormProps) {
 
     const onSubmit = (data: LoginDataValues) => {
         onLogin(data, {
-            onSuccess: onSuccess,
+            onSuccess,
             onError(error) {
                 onError(error.message)
             },

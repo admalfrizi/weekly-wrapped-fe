@@ -7,6 +7,7 @@ import { UserPlus } from "lucide-react"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { useRegister } from "../../hooks/useAuth"
+import { PasswordRegisterInput } from "../input/PasswordRegisterInput"
 
 interface RegisterFormProps {
     onSuccess: () => void;
@@ -19,11 +20,12 @@ export default function RegisterForm({ onSuccess, onError }: RegisterFormProps) 
 
     const { 
         control, 
-        handleSubmit, 
-        reset 
+        handleSubmit
     } = useForm<RegisterDataValues>({
         resolver: zodResolver(RegisterData),
         defaultValues: {
+            name: "",
+            username: "",
             email: "",
             password: ""
         }
@@ -66,21 +68,11 @@ export default function RegisterForm({ onSuccess, onError }: RegisterFormProps) 
                         isPending={isPending} 
                         placeholder="email@example.com"
                     />
-                    <FormInput<RegisterDataValues>
+                    <PasswordRegisterInput<RegisterDataValues> 
                         control={control}
-                        name="password" 
-                        label={"Password"} 
+                        name="password"
                         isPending={isPending}
-                        type="password"
-                        placeholder="••••••••"
                     />
-                    <div className="mt-2 flex gap-1">
-                      <span className="h-1 flex-1 rounded-full bg-emerald-500" />
-                      <span className="h-1 flex-1 rounded-full bg-emerald-500" />
-                      <span className="h-1 flex-1 rounded-full bg-emerald-500" />
-                      <span className="h-1 flex-1 rounded-full bg-neutral-200" />
-                    </div>
-                    <p className="mt-1.5 text-[11px] text-neutral-500">Min. 8 karakter, kombinasi huruf & angka.</p>
                     <button className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-neutral-800">
                         <UserPlus className="size-4" /> Buat akun
                     </button>

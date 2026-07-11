@@ -3,7 +3,9 @@ import axios, { AxiosError } from "axios";
 
 const isServer = typeof window === 'undefined';
 
-export const baseURL = CONFIG.apiUrl;
+export const baseURL = isServer 
+    ? CONFIG.serverApiUrl 
+    : CONFIG.apiUrl;
 
 const axiosInstance = axios.create({
     baseURL,

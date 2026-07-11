@@ -8,8 +8,8 @@ import { toast } from 'sonner';
 const RegisterPage = () => {
     const router = useRouter()
     const handleSuccess = () => { 
-        toast.success(`Login Berhasil`)
-        router.push("/")
+        toast.success(`Pengguna baru berhasil di buat`)
+        router.push("/login")
     }
 
     const handleError = (message: string) => {
