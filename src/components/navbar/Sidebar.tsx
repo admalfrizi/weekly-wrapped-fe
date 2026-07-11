@@ -4,6 +4,8 @@ import React, { useTransition } from 'react';
 import NavLinks from './NavLinks';
 import { Button } from '../ui/button';
 import { logoutUser } from '@/app/actions/auth';
+import { Card, CardContent } from '../ui/card';
+import ProfileCard from '@/features/dashboard/components/ProfileCard';
 
 const Sidebar = () => {
     const [isPending, startTransition] = useTransition()
@@ -17,6 +19,7 @@ const Sidebar = () => {
                 <NavLinks />
             </div>
             <div className='flex flex-col gap-6 px-5'>
+                <ProfileCard />
                 <Button className='w-full' onClick={() => startTransition(() => logoutUser())} >
                     {isPending ? 'Logging out...' : 'Log Out'}
                 </Button>

@@ -4,9 +4,6 @@ import { QueryProviders } from '../query-providers';
 import { cookies } from 'next/headers';
 
 const MainLayout = async ({children}: {children: ReactNode}) => {
-    const cookieStore = await cookies()
-    const isAuthenticated = cookieStore.has('token')
-
     return (
         <div className='flex min-h-screen flex-col md:flex-row'>
             <Sidebar />
