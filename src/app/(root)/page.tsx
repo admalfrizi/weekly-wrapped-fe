@@ -11,9 +11,6 @@ export default function Home() {
           <p className="mt-1 text-sm text-neutral-500">18 entri tercatat · 2 hari lagi sebelum recap otomatis di-generate.</p>
         </div>
         <div className="flex gap-2">
-          <button className="inline-flex items-center gap-2 rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-800 hover:bg-neutral-50">
-            <Plus className="size-4" /> Log activity
-          </button>
           <button className="inline-flex items-center gap-2 rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800">
             <Sparkles className="size-4" /> Generate recap
           </button>
