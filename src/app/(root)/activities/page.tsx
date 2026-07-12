@@ -2,12 +2,15 @@
 
 import { DataTable } from '@/components/data-tables/data-table';
 import { activityColumns } from '@/features/activities/components/activity-column';
+import { ActivityFormDialog } from '@/features/activities/components/activity-form-dialog';
+import TopMenu from '@/features/activities/components/top-menu';
 import { useActivity } from '@/features/activities/hooks/useActivity';
 import { PaginationState } from '@tanstack/react-table';
 import React, { useMemo, useState } from 'react';
 import { isError } from 'util';
 
 const ActivitiesPage = () => {
+    const [formOpen, setFormOpen] = useState(false);
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: 10,
@@ -20,6 +23,10 @@ const ActivitiesPage = () => {
 
     const { data, isLoading, isError } = useActivity(params);
     const meta = useMemo(() => data?.meta, [data]);
+
+    const openCreateForm = () => {
+        setFormOpen(true);
+    };
 
     const activity = useMemo(() => {
         if (!data) return [];
@@ -54,6 +61,7 @@ const ActivitiesPage = () => {
     return (
         <div className="container mx-auto py-8">
             <div className='flex flex-col gap-y-5'>
+                <TopMenu openCreateForm={openCreateForm} />
                 <DataTable
                     columns={columns} 
                     data={activity as Activity[]}  
@@ -65,6 +73,7 @@ const ActivitiesPage = () => {
                     onPaginationChange={setPagination}              
                 />
             </div>
+            <ActivityFormDialog open={formOpen} onOpenChange={setFormOpen}/>
         </div>
     );
 };

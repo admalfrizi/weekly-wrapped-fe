@@ -11,9 +11,9 @@ interface Activity {
   value: string;
   note: string;
   category: {
-    id: number;
+    id: string;
     name: string;
   };
-  createdAt?: string;
-  updatedAt?: string;
+  occurred_at?: string;
+  created_at?: string;
 }

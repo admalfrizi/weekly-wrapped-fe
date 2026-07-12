@@ -45,5 +45,13 @@ export const RegisterData = z.object({
     }),
 });
 
+export const ActivitiesData = z.object({
+  category_id: z.string().min(1, "Kategori harus diisi"),
+  value: z.string().min(1, "Tulis berapa lama anda"),
+  note: z.string().min(1, "Catatan harus di isi"),
+  occured_at: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Format tanggal tidak valid")
+});
+
 export type LoginDataValues = z.infer<typeof LoginData>;
 export type RegisterDataValues = z.infer<typeof RegisterData>;
+export type ActivitiesDataValues = z.infer<typeof ActivitiesData>;

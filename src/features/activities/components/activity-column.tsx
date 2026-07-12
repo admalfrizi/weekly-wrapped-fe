@@ -35,7 +35,19 @@ export function activityColumns({ onEdit, onDelete }: ActivityColumnsOptions = {
     },
     {
       accessorKey: "occurred_at",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Tanggal Kapan " />,
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Tanggal Kapan" />,
+      cell: ({ row }) => {
+        const rawDate = row.getValue<string>("occurred_at")
+        const date = new Date(rawDate)
+
+        if (isNaN(date.getTime())) return "-"
+
+        return date.toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })
+      },
     },
     {
       accessorKey: "actions",
