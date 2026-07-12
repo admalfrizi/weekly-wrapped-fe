@@ -13,7 +13,7 @@ export const sideBarLinks = [
     },
     {
         icon: CalendarRange,
-        route: "/weeklyData",
+        route: "/weeklydata",
         label: "Weekly Data"
     },
 ];

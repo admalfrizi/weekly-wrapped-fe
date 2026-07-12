@@ -1,11 +1,11 @@
 import 'server-only'
 import { QueryClient } from '@tanstack/react-query'
-import { createServerApi } from '@/lib/axios-server'
+import { createApiForServer } from '@/lib/axios-server'
 import { profileKeys } from '@/features/dashboard/hooks/useProfile'
 import { USER_PATH } from '@/constant/services'
 
 export async function getProfile(token?: string) {
-  const api = createServerApi(token)
+  const api = createApiForServer(token)
   const { data } = await api.get(USER_PATH.PROFILE)
   return data
 }
