@@ -6,3 +6,7 @@ export const AUTH_PATH = {
 export const USER_PATH = {
     PROFILE: "/users/me"
 }
+
+export const ACTIVITIES_PATH = {
+    ACTIVITY: "/activity"
+}

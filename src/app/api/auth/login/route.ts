@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { AUTH_PATH } from '@/constant/services'
-import { baseURL } from '@/lib/axios'
+import { baseURL } from '@/lib/axios-client'
 import { LoginData } from '@/lib/validation'
 import { CONFIG } from '@/config'
 
