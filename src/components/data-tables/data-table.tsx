@@ -25,8 +25,8 @@ import {
   TableRow,
 } from "../../components/ui/table"
 import { Skeleton } from "../../components/ui/skeleton"
-import { DataTableToolbar } from "./data-table-toolbar"
 import { DataTablePagination } from "./data-table-pagination"
+import { DataTableToolbar } from "./data-table-toolbar"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

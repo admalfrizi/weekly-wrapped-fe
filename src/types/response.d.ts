@@ -6,8 +6,8 @@ export interface ApiSuccessResponse {
 export interface Meta {
   page : number, 
   limit : number, 
-  totalPages: number,
-  totalCount: number, 
+  total_items: number,
+  total_pages: number, 
 }
 
 interface PaginationDataResponse<T> extends ApiSuccessResponse {
