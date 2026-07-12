@@ -9,5 +9,6 @@ export const USER_PATH = {
 
 export const ACTIVITIES_PATH = {
     ACTIVITY: "/activity",
+    ACTIVITY_DTL: (id?: string) => `/activity/${id}`,
     ACTIVITY_CATEGORIES: "/activity/categories"
 }

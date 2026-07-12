@@ -8,7 +8,7 @@ import { ActivitiesData, ActivitiesDataValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useCreateActivity } from "../hooks/useActivity";
+import { useCreateActivity, useEditActivity } from "../hooks/useActivity";
 
 export interface CategoryOption {
     id: string;
@@ -25,6 +25,9 @@ interface ActivityFormProps {
 
 export function ActivityForm({activity, isEditMode, categories, onSuccess, onCancel} : ActivityFormProps) {
     const createActivity = useCreateActivity();
+    const updateActivity = useEditActivity();
+
+    console.log(updateActivity);
 
     const { 
         control, 
@@ -34,7 +37,7 @@ export function ActivityForm({activity, isEditMode, categories, onSuccess, onCan
         resolver: zodResolver(ActivitiesData),
         defaultValues: {
             category_id: isEditMode && activity ? activity.category.id : undefined, 
-            value: "", 
+            value: 0, 
             note: "", 
             occured_at: "", 
         }
@@ -53,7 +56,7 @@ export function ActivityForm({activity, isEditMode, categories, onSuccess, onCan
         } else {
             reset({
                 category_id: "", 
-                value: "", 
+                value: 0, 
                 note: "", 
                 occured_at: "", 
             });
@@ -61,11 +64,22 @@ export function ActivityForm({activity, isEditMode, categories, onSuccess, onCan
     }, [activity, categories, reset]);
 
     const onSubmit = (data: ActivitiesDataValues) => {
-        // createActivity.mutate(
-        //     data,
-        //     { onSuccess: onSuccess }
-        // );
-        console.log(data)
+        const payload = {
+            ...data,
+            occurred_at: new Date(data.occured_at).toISOString(),
+        };
+
+        if (isEditMode && activity) {
+            updateActivity.mutate(
+                { id: activity.id, formData: payload },
+                { onSuccess: onSuccess }
+            );
+        } else {
+            createActivity.mutate(
+                payload,
+                { onSuccess: onSuccess }
+            );
+        }
     }
     
     return (
@@ -84,6 +98,7 @@ export function ActivityForm({activity, isEditMode, categories, onSuccess, onCan
                         <FormInput 
                             control={control}
                             name="value" 
+                            type="number"
                             label={"Berapa Lama"} 
                             isPending={isPending}                        
                         />

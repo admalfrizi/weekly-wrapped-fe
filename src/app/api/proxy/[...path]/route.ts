@@ -45,7 +45,6 @@ async function forwardRequest(
   }
 }
 
-// Export the specific methods Next.js expects
 export const POST = forwardRequest;
 export const PATCH = forwardRequest;
 export const PUT = forwardRequest;

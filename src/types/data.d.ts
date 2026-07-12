@@ -7,7 +7,7 @@ interface User {
 
 interface Activity {
   id: string;
-  value: string;
+  value: number;
   note: string;
   category: {
     id: string;

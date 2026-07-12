@@ -12,9 +12,18 @@ interface RegisterDataRequest {
 
 interface ActivityDataRequest {
     category_id: string,
-    value: string,
+    value: number,
     note: string,
     occured_at: string
+}
+
+interface UpdateActivityDataRequest {
+    id: string;
+    formData: ActivityDataRequest
+}
+
+interface DeleteActivityRequest {
+    id: string
 }
 
 interface PaginatedDataRequest {

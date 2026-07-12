@@ -47,9 +47,11 @@ export const RegisterData = z.object({
 
 export const ActivitiesData = z.object({
   category_id: z.string().min(1, "Kategori harus diisi"),
-  value: z.string().min(1, "Tulis berapa lama anda"),
+  value: z.number().min(1, "Tulis berapa lama anda"),
   note: z.string().min(1, "Catatan harus di isi"),
-  occured_at: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Format tanggal tidak valid")
+  occured_at: z.string().refine((val) => !isNaN(Date.parse(val)), {
+      message: "Invalid date",
+  })
 });
 
 export type LoginDataValues = z.infer<typeof LoginData>;

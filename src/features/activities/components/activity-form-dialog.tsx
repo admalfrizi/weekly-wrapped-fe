@@ -12,15 +12,12 @@ interface ActivityFormDialogProps {
 export function ActivityFormDialog({open, onOpenChange, activity, categories}: ActivityFormDialogProps) {
     const isEditMode = Boolean(activity);
     const handleSuccess = () => { 
-        toast.success(`Data buku telah berhasil  ${isEditMode ? "disimpan" : "dibuat"} !`, {
+        toast.success(`Data buku telah berhasil ${isEditMode ? "disimpan" : "dibuat"} !`, {
             closeButton: true
         })
         onOpenChange(false)
     };
     const handleCancel = () => { 
-        toast.error(`Ada kesalahan pada data buku anda !`, {
-            closeButton: true
-        })
         onOpenChange(false) 
     };
     

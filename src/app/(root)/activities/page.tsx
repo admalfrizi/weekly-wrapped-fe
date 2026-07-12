@@ -1,18 +1,20 @@
 'use client';
 
 import { DataTable } from '@/components/data-tables/data-table';
+import { ConfirmDialog } from '@/components/dialog/confirm-dialog';
 import { activityColumns } from '@/features/activities/components/activity-column';
 import { CategoryOption } from '@/features/activities/components/activity-form';
 import { ActivityFormDialog } from '@/features/activities/components/activity-form-dialog';
 import TopMenu from '@/features/activities/components/top-menu';
-import { useActivity, useCategories } from '@/features/activities/hooks/useActivity';
+import { useActivity, useCategories, useDeleteActivity } from '@/features/activities/hooks/useActivity';
 import { PaginationState } from '@tanstack/react-table';
 import React, { useMemo, useState } from 'react';
-import { isError } from 'util';
+import { toast } from 'sonner';
 
 const ActivitiesPage = () => {
     const [formOpen, setFormOpen] = useState(false);
     const [editActivity, setEditActivity] = useState<Activity | null>(null);
+    const [deleteActivity, setDeleteActivity] = useState<Activity | null>(null);
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: 10,
@@ -27,6 +29,7 @@ const ActivitiesPage = () => {
     const categoryData: CategoryOption[] = []
     const meta = useMemo(() => data?.meta, [data]);
     const category = useCategories();
+    const deleteMutation = useDeleteActivity();
 
     const openCreateForm = () => {
         setEditActivity(null)
@@ -68,7 +71,8 @@ const ActivitiesPage = () => {
 
     const columns = useMemo(
         () => activityColumns({
-            onEdit: (book) => openEditForm(book),
+            onEdit: (activity) => openEditForm(activity),
+            onDelete: (activity) => setDeleteActivity(activity)
         }),
         []
     );
@@ -95,6 +99,23 @@ const ActivitiesPage = () => {
                 />
             </div>
             <ActivityFormDialog open={formOpen} onOpenChange={setFormOpen} activity={editActivity} categories={categories}/>
+            <ConfirmDialog
+                open={Boolean(deleteActivity)}
+                onOpenChange={(open) => !open && setDeleteActivity(null)}
+                title="Hapus Aktivitas ini ?"
+                description={`Data aktivitas ini akan dihapus selamanya. Yakin beneran mau dihapus ?`}
+                isPending={deleteMutation.isPending}
+                onConfirm={() => {
+                    if (deleteActivity) {
+                        deleteMutation.mutate({ id: deleteActivity.id }, {
+                            onSuccess: () => { 
+                                toast.success("Aktivitas anda telah dihapus")
+                                setDeleteActivity(null)
+                            },
+                        });
+                    }
+                }}
+            />
         </div>
     );
 };

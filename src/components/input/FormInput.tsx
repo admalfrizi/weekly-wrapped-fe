@@ -52,7 +52,7 @@ export function FormInput<T extends FieldValues>({
                             disabled={isPending}
                             onChange={(e) => {
                                 if (type === "number") {
-                                    const value = e.target.value === "" ? "" : Number(e.target.value);
+                                    const value = e.target.value === "" ? undefined : Number(e.target.value);
                                     field.onChange(value);
                                 } else {
                                     field.onChange(e.target.value);
