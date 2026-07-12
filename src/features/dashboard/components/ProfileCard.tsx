@@ -19,6 +19,7 @@ const getInitials = (name?: string) => {
 
 const ProfileCard = () => {
     const { data, isLoading } = useProfile();
+    const profileData = data?.data
 
     return (
         <Card className='py-3'>
@@ -26,12 +27,12 @@ const ProfileCard = () => {
                 <div className='flex items-center gap-x-4'>
                     <Avatar className='h-12 w-12'>
                         <AvatarFallback>
-                            {isLoading ? '..' : getInitials(data?.name)}
+                            {isLoading ? '..' : getInitials(profileData?.name)}
                         </AvatarFallback>
                     </Avatar>
                     <div className='flex flex-col gap-y-2'>
-                        <h1 className='font-semibold'>{isLoading ? 'Nama Anda' : data?.name}</h1>
-                        <p>{isLoading ? 'Email Anda' : data?.email}</p>
+                        <h1 className='font-semibold'>{isLoading ? 'Nama Anda' : profileData?.name}</h1>
+                        <p>{isLoading ? 'Email Anda' : profileData?.email}</p>
                     </div>
                 </div>
             </CardContent>

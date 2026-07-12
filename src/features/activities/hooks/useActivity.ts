@@ -1,4 +1,3 @@
-import { activitiesApi } from "@/api/activities_api";
 import { useFetch } from "@/lib/query";
 import { PaginationDataResponse } from "@/types/response";
 import { keepPreviousData } from "@tanstack/react-query";

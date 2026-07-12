@@ -35,7 +35,7 @@ export function activityColumns({ onEdit, onDelete }: ActivityColumnsOptions = {
     },
     {
       accessorKey: "occurred_at",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Tanggal Kapna " />,
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Tanggal Kapan " />,
     },
     {
       accessorKey: "actions",

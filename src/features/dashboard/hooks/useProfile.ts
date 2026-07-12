@@ -1,12 +1,14 @@
 "use client"
 
+import { APIResponse } from "@/lib/fetch"
 import { useFetch } from "@/lib/query"
 
 async function fetchProfileClient() {
   const res = await fetch('/api/profile')
-  console.log(res)
+  const data = await res.json()
   if (!res.ok) throw new Error('Failed to fetch profile')
-  return res.json()
+
+  return data
 }
 
 export const profileKeys = {
@@ -15,7 +17,7 @@ export const profileKeys = {
 }
 
 export const useProfile = () => {
-    return useFetch<User>(
+    return useFetch<APIResponse<User>>(
         profileKeys.detail(),
         fetchProfileClient
     )
