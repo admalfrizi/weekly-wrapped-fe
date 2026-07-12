@@ -28,31 +28,18 @@ export function ActivityFormDialog({open, onOpenChange, activity, categories}: A
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>{isEditMode ? "Ubah Data Aktivitas" : "Tambah Aktivitas Baru"}</DialogTitle>
+                    <DialogTitle className="text-xl font-bold">{isEditMode ? "Ubah Data Aktivitas" : "Tambah Aktivitas Baru"}</DialogTitle>
                     <DialogDescription>
                         {isEditMode ? "Melakukan perubahan pada data aktivitas" : "Menambahkan nama data aktivitas baru"}
                     </DialogDescription>
                 </DialogHeader>
-                {open && (
-                    <ActivityForm 
-                        activity={activity} 
-                        isEditMode={isEditMode} 
-                        onSuccess={handleSuccess} 
-                        onCancel={handleCancel}
-                        categories={categories}
-                    />
-                )
-
-                }
-                {/* {open && (
-                    <BookForm 
-                        book={book}
-                        isEditMode={isEditMode}
-                        categories={categories}
-                        onSuccess={handleSuccess} 
-                        onCancel={handleCancel}
-                    />
-                )} */}
+                <ActivityForm 
+                    activity={activity} 
+                    isEditMode={isEditMode} 
+                    onSuccess={handleSuccess} 
+                    onCancel={handleCancel}
+                    categories={categories}
+                />
             </DialogContent>
         </Dialog>
     )

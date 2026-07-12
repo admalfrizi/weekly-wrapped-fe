@@ -2,15 +2,17 @@
 
 import { DataTable } from '@/components/data-tables/data-table';
 import { activityColumns } from '@/features/activities/components/activity-column';
+import { CategoryOption } from '@/features/activities/components/activity-form';
 import { ActivityFormDialog } from '@/features/activities/components/activity-form-dialog';
 import TopMenu from '@/features/activities/components/top-menu';
-import { useActivity } from '@/features/activities/hooks/useActivity';
+import { useActivity, useCategories } from '@/features/activities/hooks/useActivity';
 import { PaginationState } from '@tanstack/react-table';
 import React, { useMemo, useState } from 'react';
 import { isError } from 'util';
 
 const ActivitiesPage = () => {
     const [formOpen, setFormOpen] = useState(false);
+    const [editActivity, setEditActivity] = useState<Activity | null>(null);
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: 10,
@@ -22,11 +24,28 @@ const ActivitiesPage = () => {
     }
 
     const { data, isLoading, isError } = useActivity(params);
+    const categoryData: CategoryOption[] = []
     const meta = useMemo(() => data?.meta, [data]);
+    const category = useCategories();
 
     const openCreateForm = () => {
+        setEditActivity(null)
         setFormOpen(true);
     };
+
+    const openEditForm = (activity: Activity) => {
+        setEditActivity(activity)
+        setFormOpen(true);
+    };
+
+    const categories = useMemo(() => {
+        if (!category?.data) return [];
+        
+        return category.data?.data.map((cat: any) => ({
+            id: cat.id,
+            name: cat.name 
+        }));
+    }, [categoryData]);
 
     const activity = useMemo(() => {
         if (!data) return [];
@@ -48,7 +67,9 @@ const ActivitiesPage = () => {
     }, [data]) as Activity[];
 
     const columns = useMemo(
-        () => activityColumns(),
+        () => activityColumns({
+            onEdit: (book) => openEditForm(book),
+        }),
         []
     );
 
@@ -73,7 +94,7 @@ const ActivitiesPage = () => {
                     onPaginationChange={setPagination}              
                 />
             </div>
-            <ActivityFormDialog open={formOpen} onOpenChange={setFormOpen}/>
+            <ActivityFormDialog open={formOpen} onOpenChange={setFormOpen} activity={editActivity} categories={categories}/>
         </div>
     );
 };

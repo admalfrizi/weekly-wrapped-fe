@@ -16,7 +16,7 @@ export function FormTextArea<T extends FieldValues>({
     name, 
     label, 
     isPending,
-    placeholder = "Pilih opsi"
+    placeholder = "Isi disini..."
 }: FormTextAreaProps<T> ) {
     return (
         <Controller
@@ -32,9 +32,10 @@ export function FormTextArea<T extends FieldValues>({
                         disabled={isPending}
                         aria-invalid={fieldState.invalid}
                         value={field.value === undefined ? "" : field.value}
-                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        onChange={(e) => field.onChange(e.target.value)}
                         onBlur={field.onBlur}
                         name={field.name}
+                        placeholder={placeholder}
                         className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                     {fieldState.invalid && fieldState.error && (

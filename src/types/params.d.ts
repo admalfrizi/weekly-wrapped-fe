@@ -10,6 +10,13 @@ interface RegisterDataRequest {
     password: string
 }
 
+interface ActivityDataRequest {
+    category_id: string,
+    value: string,
+    note: string,
+    occured_at: string
+}
+
 interface PaginatedDataRequest {
     page: number
     limit: number

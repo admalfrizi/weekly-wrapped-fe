@@ -8,5 +8,6 @@ export const USER_PATH = {
 }
 
 export const ACTIVITIES_PATH = {
-    ACTIVITY: "/activity"
+    ACTIVITY: "/activity",
+    ACTIVITY_CATEGORIES: "/activity/categories"
 }

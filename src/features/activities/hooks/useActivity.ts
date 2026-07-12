@@ -1,6 +1,8 @@
-import { useFetch } from "@/lib/query";
+import { createActivity, fetchActivity, fetchCategories } from "@/api/activity_api";
+import { useFetch, useMutate } from "@/lib/query";
 import { PaginationDataResponse } from "@/types/response";
-import { keepPreviousData } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { CategoryOption } from "../components/activity-form";
 
 export const activityKeys = {
     all: () => ["activity"] as const, 
@@ -8,15 +10,6 @@ export const activityKeys = {
     categoriesOption: () => ["categories"],
     detail: (id: number) => ["activity", id] as const
 };
-
-export async function fetchActivity(params: PaginatedDataRequest) {
-  const { page, limit } = params;
-  const res = await fetch(`/api/activity?page=${page}&limit=${limit}`)
-  if (!res.ok) throw new Error('Failed to fetch activity')
-
-  const data = await res.json()
-  return data
-}
 
 export function useActivity(
     params: PaginatedDataRequest
@@ -27,5 +20,18 @@ export function useActivity(
         {
             placeholderData: keepPreviousData
         }
+    )
+}
+
+export function useCategories() {
+    return useQuery({
+        queryKey: activityKeys.categoriesOption(),
+        queryFn: async () => fetchCategories(),
+    })
+}
+
+export function useCreateActivity() {
+    return useMutate<Activity, ActivityDataRequest>(
+        (params) => createActivity(params)
     )
 }

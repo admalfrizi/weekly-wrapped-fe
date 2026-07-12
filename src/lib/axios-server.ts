@@ -8,3 +8,10 @@ export function createApiForBE(token?: string) {
     timeout: 5000,
   })
 }
+
+export const apiClient = axios.create({
+  baseURL: '/api/proxy', 
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});

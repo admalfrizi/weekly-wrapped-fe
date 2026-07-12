@@ -2,11 +2,13 @@ import { FormDate } from "@/components/input/FormDate";
 import { FormInput } from "@/components/input/FormInput";
 import { FormSelect } from "@/components/input/FormSelect";
 import { FormTextArea } from "@/components/input/FormTextArea";
+import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ActivitiesData, ActivitiesDataValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useCreateActivity } from "../hooks/useActivity";
 
 export interface CategoryOption {
     id: string;
@@ -22,6 +24,8 @@ interface ActivityFormProps {
 }
 
 export function ActivityForm({activity, isEditMode, categories, onSuccess, onCancel} : ActivityFormProps) {
+    const createActivity = useCreateActivity();
+
     const { 
         control, 
         handleSubmit, 
@@ -35,6 +39,8 @@ export function ActivityForm({activity, isEditMode, categories, onSuccess, onCan
             occured_at: "", 
         }
     });
+
+    const isPending = createActivity.isPending;
 
     useEffect(() => {
         if (activity) {
@@ -55,15 +61,18 @@ export function ActivityForm({activity, isEditMode, categories, onSuccess, onCan
     }, [activity, categories, reset]);
 
     const onSubmit = (data: ActivitiesDataValues) => {
-
+        // createActivity.mutate(
+        //     data,
+        //     { onSuccess: onSuccess }
+        // );
+        console.log(data)
     }
     
     return (
         <div className="flex items-center justify-center mt-2">
             <div className="w-full bg-(--surface-2) rounded-[12px]">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="relative w-full">
-                        {/* <FormSelect /> */}
+                    <div className="flex flex-col w-full gap-y-4">
                         <FormSelect
                             control={control}
                             name="category_id"
@@ -75,26 +84,26 @@ export function ActivityForm({activity, isEditMode, categories, onSuccess, onCan
                         <FormInput 
                             control={control}
                             name="value" 
-                            label={"Penulis Buku"} 
+                            label={"Berapa Lama"} 
                             isPending={isPending}                        
                         />
                         <FormTextArea 
                             control={control}
-                            name="value" 
-                            label={"Penulis Buku"} 
+                            name="note" 
+                            label={"Catatan"} 
                             isPending={isPending}  
                         />
                         <FormDate 
                             control={control}
                             name="occured_at" 
-                            label="Tanggal Publikasi" 
+                            label="Tanggal Kapan" 
                             isPending={isPending}                        
                         />
                         <div className="flex justify-end gap-2">
-                            <button className="px-4 py-0">Cancel</button>
-                            <button className="px-4 h-9 bg-(--bg-accent) text-(--text-accent) border border-(--border-accent) rounded-(--radius) text-[14px] font-medium">
-                                Save activity
-                            </button>
+                            <Button type="button" variant="outline" className="px-4 py-0" onClick={onCancel}>Cancel</Button>
+                            <Button className="px-4 h-9 bg-(--bg-accent) text-(--text-accent) border border-(--border-accent) rounded-(--radius) text-[14px] font-medium">
+                                {isPending ? "Saving..." : isEditMode ? "Simpan Perubahan" : "Buat Data"}
+                            </Button>
                         </div>
                     </div>
                 </form>
