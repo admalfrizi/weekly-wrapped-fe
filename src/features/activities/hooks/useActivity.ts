@@ -10,12 +10,21 @@ export const activityKeys = {
     detail: (id: number) => ["activity", id] as const
 };
 
+export async function fetchActivity(params: PaginatedDataRequest) {
+  const { page, limit } = params;
+  const res = await fetch(`/api/activity?page=${page}&limit=${limit}`)
+  if (!res.ok) throw new Error('Failed to fetch activity')
+
+  const data = await res.json()
+  return data
+}
+
 export function useActivity(
     params: PaginatedDataRequest
 ) {
     return useFetch<PaginationDataResponse<Activity[]>>(
         activityKeys.list(params),
-        () => activitiesApi.getAllData(params),
+        () => fetchActivity(params),
         {
             placeholderData: keepPreviousData
         }

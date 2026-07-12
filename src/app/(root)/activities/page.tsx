@@ -22,7 +22,7 @@ const ActivitiesPage = () => {
     const meta = useMemo(() => data?.meta, [data]);
 
     const activity = useMemo(() => {
-        if (!data?.data) return [];
+        if (!data) return [];
 
         return data.data.map((rawBook: any) => {
             if (typeof rawBook.category === 'string' || rawBook.category_id) {

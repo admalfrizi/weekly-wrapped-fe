@@ -3,15 +3,12 @@ import { AxiosResponse, AxiosError } from "axios";
 
 export function useFetch<TResponse>(
   queryKey: QueryKey,
-  queryFn: () => Promise<AxiosResponse<TResponse>>,
+  queryFn: () => Promise<TResponse>,
   options?: Omit<UseQueryOptions<TResponse, AxiosError>, 'queryKey' | 'queryFn'>
 ) {
   return useQuery<TResponse, AxiosError>({
     queryKey,
-    queryFn: async (): Promise<TResponse> => {
-      const response = await queryFn();
-      return response.data;
-    },
+    queryFn,
     ...options,
   });
 }
