@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json()
-        const validatedData = RegisterData.safeParse(body.registerData);
+        const validatedData = RegisterData.safeParse(body);
     
         if (!validatedData.success) {
             return NextResponse.json({ error: 'Invalid payload format' }, { status: 400 })
