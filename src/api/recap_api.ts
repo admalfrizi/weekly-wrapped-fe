@@ -3,7 +3,7 @@ import { apiClientToBE } from "@/lib/axios";
 import { PaginationDataResponse } from "@/types/response";
 
 export async function generateRecap(params?: GenerateRecapRequest) {
-  const res = await apiClientToBE.post<WeeklyRecap>(RECAP_PATH.GENERATE, { params });
+  const res = await apiClientToBE.post<PaginationDataResponse<WeeklyRecap>>(RECAP_PATH.GENERATE, { params });
   return res;
 };
 

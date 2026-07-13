@@ -28,7 +28,8 @@ export default function Home() {
   const handleGenerateRecap = () => {
     generateRecap(paramsToCreateRecap, {
       onSuccess: (response) => {
-        const slug = response.slug;
+        const slug = response.data.slug;
+        console.log(slug)
         router.push(`/recap/${slug}`)
       },
       onError: (error) => {
@@ -44,6 +45,7 @@ export default function Home() {
         weekNumber={dashboard?.week_number}
         totalEntries={dashboard?.total_entries}
         onGenerate={handleGenerateRecap}
+        isPending={isPending}
       />
       <StatCardList cards={dashboard?.cards || []} />
       <div className="mt-6 grid gap-6 md:grid-cols-12">

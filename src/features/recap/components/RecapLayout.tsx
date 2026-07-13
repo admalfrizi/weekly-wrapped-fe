@@ -8,8 +8,6 @@ interface RecapLayoutProps {
 
 export const RecapLayout = ({ recap }: RecapLayoutProps) => {
   const stats = recap.stats_snapshot;
-
-  console.log( recap )
   
   const topCategory = stats.compositions.length > 0 
     ? stats.compositions.reduce((prev: { percentage: number; }, current: { percentage: number; }) => (prev.percentage > current.percentage) ? prev : current)

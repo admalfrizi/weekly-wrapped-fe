@@ -37,21 +37,21 @@ export async function POST(request: NextRequest) {
     const cookieStore = await cookies();
 
     cookieStore.set('accessToken', access_token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
     })
 
     cookieStore.set('refreshToken', refresh_token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
     })
 
     cookieStore.set('expiresAt', String(expiresAtMs), {
-      httpOnly: true,
+      httpOnly: false,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',

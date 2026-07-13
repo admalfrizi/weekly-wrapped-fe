@@ -3,7 +3,7 @@ import { useFetch, useMutate } from "@/lib/query"
 import { PaginationDataResponse } from "@/types/response"
 
 export const useGenerateRecap = () => {
-    return useMutate<WeeklyRecap, GenerateRecapRequest>(
+    return useMutate<PaginationDataResponse<WeeklyRecap>, GenerateRecapRequest>(
         (params) => generateRecap(params)
     )
 }
