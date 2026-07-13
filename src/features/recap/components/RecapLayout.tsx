@@ -8,13 +8,15 @@ interface RecapLayoutProps {
 
 export const RecapLayout = ({ recap }: RecapLayoutProps) => {
   const stats = recap.stats_snapshot;
+
+  console.log( recap )
   
   const topCategory = stats.compositions.length > 0 
     ? stats.compositions.reduce((prev: { percentage: number; }, current: { percentage: number; }) => (prev.percentage > current.percentage) ? prev : current)
     : null;
 
   return (
-    <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-3xl bg-gradient-to-br from-neutral-900 via-indigo-950 to-neutral-900 p-8 text-white shadow-2xl">
+    <div className="relative mx-auto w-full max-w-md overflow-hidden rounded-3xl bg-linear-to-br from-neutral-900 via-indigo-950 to-neutral-900 p-8 text-white shadow-2xl">
       
       {/* Header */}
       <div className="mb-8 text-center">
@@ -54,14 +56,13 @@ export const RecapLayout = ({ recap }: RecapLayoutProps) => {
         </div>
         <div className="rounded-2xl bg-white/5 p-5 backdrop-blur-sm border border-white/10">
           <Calendar className="mb-2 size-5 text-emerald-400" />
-          {/* Defaulting to a static day for MVP, can be calculated from chart_data later */}
           <p className="text-2xl font-bold text-white">Rabu</p>
           <p className="text-xs font-medium text-indigo-200">Paling Produktif</p>
         </div>
       </div>
 
       {/* The AI Narrative */}
-      <div className="rounded-2xl bg-gradient-to-r from-indigo-500/20 to-purple-500/20 p-6 backdrop-blur-md border border-indigo-500/30">
+      <div className="rounded-2xl bg-linear-to-r from-indigo-500/20 to-purple-500/20 p-6 backdrop-blur-md border border-indigo-500/30">
         <p className="text-sm font-medium leading-relaxed text-indigo-100">
           "{recap.narrative}"
         </p>

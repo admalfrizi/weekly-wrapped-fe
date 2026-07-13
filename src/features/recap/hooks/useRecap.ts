@@ -1,8 +1,18 @@
-import { generateRecap } from "@/api/recap_api"
-import { useMutate } from "@/lib/query"
+import { generateRecap, getRecap } from "@/api/recap_api"
+import { useFetch, useMutate } from "@/lib/query"
+import { PaginationDataResponse } from "@/types/response"
 
 export const useGenerateRecap = () => {
     return useMutate<WeeklyRecap, GenerateRecapRequest>(
         (params) => generateRecap(params)
+    )
+}
+
+export function useRecap(
+    slug: string
+) {
+    return useFetch<PaginationDataResponse<WeeklyRecap>>(
+        ['recap'] as const,
+        () => getRecap(slug)
     )
 }

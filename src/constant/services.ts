@@ -18,5 +18,6 @@ export const DASHBOARD_PATH = {
 }
 
 export const RECAP_PATH = {
-    GENERATE: "/recap/generate",
+    GENERATE: "/recaps/generate",
+    RECAP_SLUG: (slug: string) => `/recaps/${slug}`
 }
