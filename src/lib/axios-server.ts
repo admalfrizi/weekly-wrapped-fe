@@ -15,3 +15,11 @@ export const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+export const apiForAuth = axios.create({
+    baseURL : CONFIG.apiUrl,
+    withCredentials: true,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+})

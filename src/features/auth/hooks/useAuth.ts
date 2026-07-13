@@ -1,14 +1,14 @@
-import { authApi } from "@/api/auth_api"
+import { login, register } from "@/api/auth_api"
 import { useMutate } from "@/lib/query"
 
 export const useLogin = () => {
     return useMutate<User, LoginDataRequest>(
-        (loginData) => authApi.login(loginData)
+        (loginData) => login(loginData)
     )
 }
 
 export const useRegister = () => {
     return useMutate<User, RegisterDataRequest>(
-        (registerData) => authApi.register(registerData)
+        (registerData) => register(registerData)
     )
 }

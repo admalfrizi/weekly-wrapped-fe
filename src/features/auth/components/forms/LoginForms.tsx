@@ -56,8 +56,8 @@ export default function LoginForm({ onSuccess, onError }: LoginFormProps) {
                         type="password"
                         placeholder="••••••••"
                     />
-                    <Button className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-neutral-800">
-                        Login
+                    <Button disabled={isPending} className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-neutral-800">
+                        {isPending ? "Loading..." : "Login"}
                     </Button>
                     <div className="relative py-1 text-center">
                         <span className="absolute inset-x-0 top-1/2 z-0 h-px bg-neutral-200" />

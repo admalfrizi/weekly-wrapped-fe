@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { AUTH_PATH } from '@/constant/services'
-import { baseURL } from '@/lib/axios-client'
 import { LoginData } from '@/lib/validation'
 import { CONFIG } from '@/config'
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const validatedData = LoginData.safeParse(body.loginData);
+    const validatedData = LoginData.safeParse(body);
 
     if (!validatedData.success) {
       return NextResponse.json({ error: 'Invalid payload format' }, { status: 400 })
@@ -16,7 +15,7 @@ export async function POST(request: NextRequest) {
 
     const res = await fetch(CONFIG.serverApiUrl + AUTH_PATH.LOGIN_URL, {
       method: 'POST',
-      body: JSON.stringify(body.loginData),
+      body: JSON.stringify(body),
       headers: { 'Content-Type': 'application/json' },
     })
 

@@ -1,17 +1,12 @@
-import { post } from "./apiClient";
+import { apiClient, apiForAuth } from "@/lib/axios-server";
 import { AUTH_PATH } from "@/constant/services";
 
-export const authApi = {
-    login: async (loginData?: LoginDataRequest) => await post<User>(
-        AUTH_PATH.LOGIN_URL, 
-        {
-            loginData
-        }
-    ),
-    register: async (registerData?: RegisterDataRequest) => await post<User>(
-        AUTH_PATH.REGISTER_URL,
-        {
-            registerData
-        }
-    )
+export async function login(params?: LoginDataRequest) {
+    const res = await apiForAuth.post<User>(AUTH_PATH.LOGIN_URL, params)
+    return res
+}
+
+export async function register(params?: RegisterDataRequest) {
+    const res = await apiForAuth.post<User>(AUTH_PATH.REGISTER_URL, params)
+    return res
 }
