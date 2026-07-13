@@ -10,10 +10,5 @@ export const sideBarLinks = [
         icon: Activity,
         route: "/activities",
         label: "Activities"
-    },
-    {
-        icon: CalendarRange,
-        route: "/weeklydata",
-        label: "Weekly Data"
-    },
+    }
 ];
