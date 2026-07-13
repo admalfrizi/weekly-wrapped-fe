@@ -29,7 +29,6 @@ export default function Home() {
     generateRecap(paramsToCreateRecap, {
       onSuccess: (response) => {
         const slug = response.data.slug;
-        console.log(slug)
         router.push(`/recap/${slug}`)
       },
       onError: (error) => {
