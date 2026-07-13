@@ -1,6 +1,6 @@
 import 'server-only'
 import { QueryClient } from '@tanstack/react-query'
-import { createApiForBE } from '@/lib/axios-server'
+import { createApiForBE } from '@/lib/axios'
 import { profileKeys } from '@/features/dashboard/hooks/useProfile'
 import { USER_PATH } from '@/constant/services'
 

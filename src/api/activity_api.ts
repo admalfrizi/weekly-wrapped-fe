@@ -1,6 +1,6 @@
 import { ACTIVITIES_PATH } from "@/constant/services";
 import { CategoryOption } from "@/features/activities/components/activity-form";
-import { apiClient } from "@/lib/axios-server";
+import { apiClient } from "@/lib/axios";
 import { PaginationDataResponse } from "@/types/response";
 
 export async function fetchActivity(params: PaginatedDataRequest) {

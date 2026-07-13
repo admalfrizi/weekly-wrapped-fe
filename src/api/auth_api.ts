@@ -1,4 +1,4 @@
-import { apiClient, apiForAuth } from "@/lib/axios-server";
+import { apiClient, apiForAuth } from "@/lib/axios";
 import { AUTH_PATH } from "@/constant/services";
 
 export async function login(params?: LoginDataRequest) {
