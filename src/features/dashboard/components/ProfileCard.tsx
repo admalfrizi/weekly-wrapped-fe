@@ -32,7 +32,7 @@ const ProfileCard = () => {
                     </Avatar>
                     <div className='flex flex-col gap-y-2'>
                         <h1 className='font-semibold'>{isLoading ? 'Nama Anda' : profileData?.name}</h1>
-                        <p>{isLoading ? 'Email Anda' : profileData?.email}</p>
+                        <p>@{isLoading ? 'Username Anda' : profileData?.username}</p>
                     </div>
                 </div>
             </CardContent>

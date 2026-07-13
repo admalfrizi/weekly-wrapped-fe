@@ -63,9 +63,6 @@ export default function LoginForm({ onSuccess, onError }: LoginFormProps) {
                         <span className="absolute inset-x-0 top-1/2 z-0 h-px bg-neutral-200" />
                         <span className="relative bg-white px-2 text-[10px] font-medium uppercase tracking-widest text-neutral-400">atau</span>
                     </div>
-                    <Button className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-800 hover:bg-neutral-50">
-                        Lanjutkan dengan Google
-                    </Button>
                     <p className="pt-1 text-center text-xs text-neutral-500">
                         Belum punya akun? <span className="font-medium text-neutral-900 underline underline-offset-2">
                             <Link href="/register">
