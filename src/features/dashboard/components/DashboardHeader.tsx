@@ -1,12 +1,15 @@
-import { Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Loader2, Sparkles } from "lucide-react";
 
 interface DashboardHeaderProps {
   profileName?: string;
   weekNumber?: number;
   totalEntries?: number;
+  onGenerate: () => void;
+  isPending?: boolean;
 }
 
-export const DashboardHeader = ({ profileName, weekNumber, totalEntries }: DashboardHeaderProps) => {
+export const DashboardHeader = ({ profileName, weekNumber, totalEntries,onGenerate, isPending }: DashboardHeaderProps) => {
   return (
     <section className="mb-8 flex w-full flex-col gap-4 border-b border-neutral-200 pb-6 md:flex-row md:items-end md:justify-between">
       <div>
@@ -19,9 +22,14 @@ export const DashboardHeader = ({ profileName, weekNumber, totalEntries }: Dashb
         </p>
       </div>
       <div className="flex gap-2">
-        <button className="inline-flex items-center gap-2 rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800">
-          <Sparkles className="size-4" /> Generate recap
-        </button>
+        <Button 
+          className="inline-flex items-center gap-2 rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
+          onClick={onGenerate}
+          disabled={isPending}
+        >
+          {isPending ? <Loader2 className="size-4 animate-spin" /> : <Sparkles className="size-4" />}
+          {isPending ? 'Generating...' : 'Generate recap'}
+        </Button>
       </div>
     </section>
   );

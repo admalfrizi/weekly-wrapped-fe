@@ -16,3 +16,7 @@ export const ACTIVITIES_PATH = {
 export const DASHBOARD_PATH = {
     WEEKLY: "/dashboard/weekly",
 }
+
+export const RECAP_PATH = {
+    GENERATE: "/recap/generate",
+}

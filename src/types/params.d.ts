@@ -34,3 +34,7 @@ interface PaginatedDataRequest {
 interface WeeklyDashboardRequest {
     startDate: string
 }
+
+interface GenerateRecapRequest {
+    start_date: string
+}
