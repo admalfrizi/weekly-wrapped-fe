@@ -4,12 +4,8 @@ import { apiClient } from "@/lib/axios";
 import { PaginationDataResponse } from "@/types/response";
 
 export async function fetchActivity(params: PaginatedDataRequest) {
-  const { page, limit } = params;
-  const res = await fetch(`/api/activity?page=${page}&limit=${limit}`)
-  if (!res.ok) throw new Error('Failed to fetch activity')
-
-  const data = await res.json()
-  return data
+  const res = await apiClient.get<PaginationDataResponse<Activity[]>>(ACTIVITIES_PATH.ACTIVITY, { params })
+  return res.data
 }
 
 export async function fetchCategories() {
