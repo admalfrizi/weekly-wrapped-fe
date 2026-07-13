@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
+import { CONFIG } from "./config"
 
 export async function proxy(request: NextRequest) {
   const currentPath = request.nextUrl.pathname
@@ -24,7 +25,7 @@ export async function proxy(request: NextRequest) {
     if (isExpired) {
       if (refreshToken) {
         try {
-          const refreshRes = await fetch('http://localhost:8080/api/v1/refresh', {
+          const refreshRes = await fetch(CONFIG.serverApiUrl + '/refresh', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ refresh_token: refreshToken }),
