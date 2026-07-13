@@ -1,7 +1,6 @@
 import axiosInstance from '@/lib/axios-client';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-
 export async function get<T>(url: string, config?: AxiosRequestConfig) : Promise<AxiosResponse<T>> {
     return axiosInstance.get<T>(url, config);
 }

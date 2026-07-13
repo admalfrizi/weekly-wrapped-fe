@@ -1,6 +1,4 @@
-import { register } from "module";
 import { post } from "./apiClient";
-import { LoginDataRequest, RegisterDataRequest } from "@/types/params";
 import { AUTH_PATH } from "@/constant/services";
 
 export const authApi = {
