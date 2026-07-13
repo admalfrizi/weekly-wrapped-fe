@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const currentPath = request.nextUrl.pathname
 
   if (
@@ -11,22 +11,85 @@ export function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const token = request.cookies.get('token')?.value
+  let accessToken = request.cookies.get('accessToken')?.value
+  const refreshToken = request.cookies.get('refreshToken')?.value
+  const expiresAt = request.cookies.get('expiresAt')?.value
+
+  let newAccessToken: string | undefined
+  let newExpiresAt: string | undefined
+
+  if (accessToken && expiresAt) {
+    const isExpired = Date.now() >= parseInt(expiresAt, 10)
+
+    if (isExpired) {
+      if (refreshToken) {
+        try {
+          const refreshRes = await fetch('http://localhost:8080/api/v1/refresh', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refresh_token: refreshToken }),
+          })
+
+          if (refreshRes.ok) {
+            const result = await refreshRes.json()
+            
+            newAccessToken = String(result.data.access_token)
+            newExpiresAt = String(result.data.access_token_expires_at * 1000)
+            
+            accessToken = newAccessToken
+            
+          } else {
+            return forceLogout(request)
+          }
+        } catch (error) {
+          return forceLogout(request)
+        }
+      } else {
+        accessToken = undefined 
+      }
+    }
+  }
   
   const isAuthRoute = currentPath === '/login' || currentPath === '/register'
-  
+  let response: NextResponse
+
   if (isAuthRoute) {
-    if (token) {
-      return NextResponse.redirect(new URL('/', request.url))
+    if (accessToken) {
+      response = NextResponse.redirect(new URL('/', request.url))
+    } else {
+      response = NextResponse.next()
     }
-    return NextResponse.next()
+  } else if (!accessToken) {
+    response = NextResponse.redirect(new URL('/login', request.url))
+  } else {
+    response = NextResponse.next()
   }
 
-  if (!token) {
-    return NextResponse.redirect(new URL('/login', request.url))
+  if (newAccessToken && newExpiresAt) {
+    response.cookies.set('accessToken', newAccessToken, {
+      httpOnly: true,
+      path: '/',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+    })
+    
+    response.cookies.set('expiresAt', newExpiresAt, {
+      httpOnly: true,
+      path: '/',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+    })
   }
 
-  return NextResponse.next()
+  return response
+}
+
+function forceLogout(request: NextRequest) {
+  const response = NextResponse.redirect(new URL('/login', request.url))
+  response.cookies.delete('accessToken')
+  response.cookies.delete('refreshToken')
+  response.cookies.delete('expiresAt')
+  return response
 }
 
 export const config = {

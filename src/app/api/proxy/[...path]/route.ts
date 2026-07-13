@@ -14,7 +14,7 @@ async function forwardRequest(
   const targetUrl = `${BACKEND_URL}/${endpoint}`;
 
   const cookieStore = await cookies();
-  const token = cookieStore.get('token')?.value;
+  const token = cookieStore.get('accessToken')?.value;
 
   const headers = new Headers();
   headers.set('Content-Type', 'application/json');

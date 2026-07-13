@@ -1,6 +1,7 @@
 export interface ApiSuccessResponse {
   status: boolean;
   message: string;
+  errors?: any;
 }
 
 export interface Meta {

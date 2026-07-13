@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     const limit = Number(searchParams.get("limit")) || 10;
 
     const cookieStore = await cookies()
-    const token = cookieStore.get('token')?.value
+    const token = cookieStore.get('accessToken')?.value
 
     if(!token) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
         const result = await fetchWithAuth<Activity>(`/activity?page=${page}&limit=${limit}`, {
             cache: 'no-store',
             headers: {
-            "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`
             }
         });
 

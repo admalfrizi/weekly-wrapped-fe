@@ -1,5 +1,6 @@
 'use server'
 
+import { PaginationDataResponse } from '@/types/response';
 import { cookies } from 'next/headers';
 
 export interface APIResponse<T = any> {
@@ -12,7 +13,7 @@ export interface APIResponse<T = any> {
 export async function fetchWithAuth<T = any>(
   endpoint: string,
   options: RequestInit = {}
-): Promise<APIResponse<T>> {
+): Promise<PaginationDataResponse<T>> {
   const cookieStore = await cookies();
   
   let accessToken = cookieStore.get('accessToken')?.value;

@@ -20,19 +20,41 @@ export async function POST(request: NextRequest) {
     })
 
     const data = await res.json()
-    const token = data.data.access_token;
-    const user = data.data.user
 
     if (!res.ok) {
       return NextResponse.json(data, { status: res.status })
     }
 
-    (await cookies()).set('token', token, {
+    const { 
+      access_token, 
+      refresh_token, 
+      access_token_expires_at, 
+      user 
+    } = data.data;
+
+    const expiresAtMs = access_token_expires_at * 1000;
+
+    const cookieStore = await cookies();
+
+    cookieStore.set('accessToken', access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       path: '/',
-      maxAge: 60 * 60 * 24
+    })
+
+    cookieStore.set('refreshToken', refresh_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+    })
+
+    cookieStore.set('expiresAt', String(expiresAtMs), {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
     })
 
     return NextResponse.json({ 
