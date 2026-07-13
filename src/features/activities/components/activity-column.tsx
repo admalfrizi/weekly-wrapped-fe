@@ -28,6 +28,30 @@ export function activityColumns({ onEdit, onDelete }: ActivityColumnsOptions = {
     {
       accessorKey: "value",
       header: ({ column }) => <DataTableColumnHeader column={column} title="Berapa Lama" />,
+      cell: ({ row }) => {
+        const value = row.getValue<number>("value")
+        const categoryName = row.original.category?.name
+
+        if (value === null || value === undefined) return "-"
+
+        const categoryUnits: Record<string, string> = {
+          Coding: "menit",
+          Reading: "menit",
+          Exercise: "jam",
+          Gaming: "jam",
+          Working: "hari",
+        }
+
+        const unitLabel = categoryName ? categoryUnits[categoryName] : undefined
+
+        if (!unitLabel) return value
+
+        return (
+          <span>
+            {value} {unitLabel}
+          </span>
+        )
+      },
     },
     {
       accessorKey: "note",
