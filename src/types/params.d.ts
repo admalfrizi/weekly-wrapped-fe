@@ -30,3 +30,7 @@ interface PaginatedDataRequest {
     page: number
     limit: number
 }
+
+interface WeeklyDashboardRequest {
+    startDate: string
+}

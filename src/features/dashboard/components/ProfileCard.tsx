@@ -2,8 +2,8 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import React from 'react';
-import { useProfile } from '../hooks/useProfile';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { useProfile } from '../hooks/useDashboard';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 const getInitials = (name?: string) => {
     if (!name) return '?';

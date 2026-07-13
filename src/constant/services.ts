@@ -12,3 +12,7 @@ export const ACTIVITIES_PATH = {
     ACTIVITY_DTL: (id?: string) => `/activity/${id}`,
     ACTIVITY_CATEGORIES: "/activity/categories"
 }
+
+export const DASHBOARD_PATH = {
+    WEEKLY: "/dashboard/weekly",
+}
