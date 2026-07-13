@@ -2,7 +2,6 @@
 
 import { fetchProfileClient } from "@/api/auth_api"
 import { fetchWeeklyDashboard } from "@/api/dashboard_api"
-import { APIResponse } from "@/lib/fetch"
 import { useFetch } from "@/lib/query"
 import { DashboardData } from "@/types/dashboard"
 import { PaginationDataResponse } from "@/types/response"
@@ -14,9 +13,9 @@ export const dashboardKeys = {
 }
 
 export const useProfile = () => {
-  return useFetch<APIResponse<User>>(
+  return useFetch<PaginationDataResponse<User>>(
     dashboardKeys.detail(),
-    fetchProfileClient
+    () => fetchProfileClient()
   )
 }
 

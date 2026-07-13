@@ -21,6 +21,8 @@ const ProfileCard = () => {
     const { data, isLoading } = useProfile();
     const profileData = data?.data
 
+    console.log(profileData)
+
     return (
         <Card className='py-3'>
             <CardContent className='p-3'>
