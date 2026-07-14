@@ -70,14 +70,14 @@ export async function proxy(request: NextRequest) {
     response.cookies.set('accessToken', newAccessToken, {
       httpOnly: true,
       path: '/',
-      secure: process.env.NODE_ENV === 'production',
+      secure: CONFIG.requestSecureCookies === 'true',
       sameSite: 'lax',
     })
     
     response.cookies.set('expiresAt', newExpiresAt, {
       httpOnly: true,
       path: '/',
-      secure: process.env.NODE_ENV === 'production',
+      secure: CONFIG.requestSecureCookies === 'true',
       sameSite: 'lax',
     })
   }

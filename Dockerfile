@@ -23,6 +23,7 @@ RUN npm run build
 FROM node:22-slim AS runner 
 WORKDIR /app 
 ENV NODE_ENV=production 
+ENV REQUIRE_SECURE_COOKIES=true
 COPY --from=builder /app/public ./public 
 COPY --from=builder --chown=node:node /app/.next/standalone ./ 
 COPY --from=builder --chown=node:node /app/.next/static ./.next/static 
