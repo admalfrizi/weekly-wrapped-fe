@@ -38,21 +38,21 @@ export async function POST(request: NextRequest) {
 
     cookieStore.set('accessToken', access_token, {
       httpOnly: false,
-      secure: process.env.NODE_ENV === 'production',
+      secure: CONFIG.requestSecureCookies === 'true',
       sameSite: 'lax',
       path: '/',
     })
 
     cookieStore.set('refreshToken', refresh_token, {
       httpOnly: false,
-      secure: process.env.NODE_ENV === 'production',
+      secure: CONFIG.requestSecureCookies === 'true',
       sameSite: 'lax',
       path: '/',
     })
 
     cookieStore.set('expiresAt', String(expiresAtMs), {
       httpOnly: false,
-      secure: process.env.NODE_ENV === 'production',
+      secure: CONFIG.requestSecureCookies === 'true',
       sameSite: 'lax',
       path: '/',
     })
